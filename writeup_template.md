@@ -111,6 +111,7 @@ I chose to try it with the hog subsampling search introduced in the lessons. It 
 also stated that it's more efficient than a bare sliding window search. 
 What makes it superior is the fact that hog features need to be extract once and then can be sub-sampled to get all of its overlaying windows.
 Each window is defined by a scaling factor which makes it easy to run it several times with different scaling to detect object from different sizes.
+Instead of overlapping cells_per_step is used. (`functions.py` line 118)
 
 ![alt text][image10]
 
@@ -120,9 +121,11 @@ I chose one window with ystart 390 and ystop of 660.
 ####2. Show some examples of test images to demonstrate how your pipeline is working.  What did you do to optimize the performance of your classifier?
 
 
-Ultimately I searched on one window with 1.5 scale using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result.  Here are some example images:
+Ultimately I searched on one window with 1.5 scale using YCrCb 3-channel HOG features plus spatially binned and histograms of color in the feature vector, which provided a nice result.
 
-See section 3 for pipeline images of spatial binning, color histogram and hog features.
+See section 3 for images of spatial binning, color histogram and hog features.
+
+By using higher threshold for heatmaps i could eliminate some more false positives.
 
 ---
 
@@ -139,7 +142,7 @@ I then used `scipy.ndimage.measurements.label()` (line 246 in file `VehicleDetec
 
 Here's an example result showing the heatmap from a series of frames of video, the result of `scipy.ndimage.measurements.label()` and the resulting bounding boxes
 
-### Here are 3 consecutive frames and their corresponding heatmaps and the resulting bounding boxes in pink:
+### Here are 3 mostly consecutive frames and their corresponding heatmaps and the resulting bounding boxes in pink:
 
 ![alt text][image5]
 ![alt text][image6]
